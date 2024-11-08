@@ -64,6 +64,16 @@ public class AplikasiCekNomorFrame extends javax.swing.JFrame {
         jPanel3.add(jLabel3, gridBagConstraints);
 
         jTextField1.setPreferredSize(new java.awt.Dimension(200, 26));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -154,6 +164,18 @@ public class AplikasiCekNomorFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Harap Isi Dengan Angka", "Pengecekkan Gagal", 2);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)){
+        JOptionPane.showMessageDialog(null, "Masukkan hanya Angka(0-9)!");   
+        evt.consume();
+        }
+    }//GEN-LAST:event_jTextField1KeyTyped
 
     /**
      * @param args the command line arguments
