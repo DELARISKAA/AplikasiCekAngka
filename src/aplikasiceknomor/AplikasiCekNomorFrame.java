@@ -1,10 +1,12 @@
-/*
+  /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package aplikasiceknomor;
 
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +21,7 @@ public class AplikasiCekNomorFrame extends javax.swing.JFrame {
      */
     public AplikasiCekNomorFrame() {
         initComponents();
+        // Metode untuk memeriksa apakah suatu angka adalah bilangan prima
     }
 
     /**
@@ -41,6 +44,8 @@ public class AplikasiCekNomorFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,13 +62,21 @@ public class AplikasiCekNomorFrame extends javax.swing.JFrame {
         jLabel1.setText("Masukkan Angka :");
         jPanel3.add(jLabel1, new java.awt.GridBagConstraints());
 
-        jLabel3.setText("Genap/ ganjil :");
+        jLabel3.setText("Genap/ ganjil      :");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         jPanel3.add(jLabel3, gridBagConstraints);
 
         jTextField1.setPreferredSize(new java.awt.Dimension(200, 26));
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField1FocusLost(evt);
+            }
+        });
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -123,6 +136,18 @@ public class AplikasiCekNomorFrame extends javax.swing.JFrame {
         gridBagConstraints.gridy = 4;
         jPanel3.add(jButton3, gridBagConstraints);
 
+        jLabel4.setText("Cek Bilangan       :");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        jPanel3.add(jLabel4, gridBagConstraints);
+
+        jTextField3.setPreferredSize(new java.awt.Dimension(200, 26));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        jPanel3.add(jTextField3, gridBagConstraints);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,7 +160,7 @@ public class AplikasiCekNomorFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
         );
 
         pack();
@@ -148,25 +173,35 @@ public class AplikasiCekNomorFrame extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         jTextField1.setText("");
         jTextField2.setText("");
+        jTextField3.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try{
-            
-            angka1 = Integer.parseInt(jTextField1.getText());
-            angka2 = angka1%2;
-            if (angka2 == 0){
+        try {
+            int angka1 = Integer.parseInt(jTextField1.getText()); // Ambil input dari jTextField1 dan konversi ke integer
+            int angka2 = angka1 % 2;
+
+            // Cek bilangan genap atau ganjil
+            if (angka2 == 0) {
                 jTextField2.setText("INI ADALAH BILANGAN GENAP");
-            }else{
+            } else {
                 jTextField2.setText("INI ADALAH BILANGAN GANJIL");
             }
-        } catch (NumberFormatException e){
-            JOptionPane.showMessageDialog(null, "Harap Isi Dengan Angka", "Pengecekkan Gagal", 2);
-        }
+
+            // Cek apakah bilangan prima
+            if (bilanganprima(angka1)) {
+                jTextField3.setText("BILANGAN PRIMA");
+            } else {
+                jTextField3.setText("BUKAN BILANGAN PRIMA");
+            }
+            JOptionPane.showMessageDialog(null, "Pengecekkean angka berhasil", "Hasil Pengecekan", JOptionPane.INFORMATION_MESSAGE);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Harap Isi Dengan Angka", "Pengecekkan Gagal", JOptionPane.ERROR_MESSAGE);
+}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
@@ -176,6 +211,14 @@ public class AplikasiCekNomorFrame extends javax.swing.JFrame {
         evt.consume();
         }
     }//GEN-LAST:event_jTextField1KeyTyped
+
+    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1FocusGained
+
+    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1FocusLost
 
     /**
      * @param args the command line arguments
@@ -219,9 +262,25 @@ public class AplikasiCekNomorFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
+
+    private boolean bilanganprima(int angka1) {
+    if (angka1 <= 1) {
+        return false; // Angka kurang dari atau sama dengan 1 bukan bilangan prima
+    }
+
+    for (int i = 2; i <= Math.sqrt(angka1); i++) {
+        if (angka1 % i == 0) {
+            return false; // Jika habis dibagi angka lain, maka bukan prima
+        }
+    }
+    return true; // Angka adalah bilangan prima
+}
+
 }
